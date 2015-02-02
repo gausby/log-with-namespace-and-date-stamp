@@ -1,0 +1,18 @@
+{
+  "name": "log-with-namespace-and-date-stamp",
+  "version": "1.0.0",
+  "description": "A simple log function with namespace and date-stamp",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard && node test/*-test.js"
+  },
+  "keywords": [
+    "log"
+  ],
+  "author": "Martin Gausby <martin@gausby.dk>",
+  "license": "MIT",
+  "devDependencies": {
+    "standard": "^2.2.5",
+    "tape": "^3.4.0"
+  }
+}
