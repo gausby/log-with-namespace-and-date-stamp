@@ -7,7 +7,7 @@
     "test": "standard && node test/*-test.js"
   },
   "keywords": [
-    "log"
+    "log", "time-stamp", "name-space"
   ],
   "author": "Martin Gausby <martin@gausby.dk>",
   "license": "MIT",
