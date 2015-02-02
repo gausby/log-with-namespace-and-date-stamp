@@ -1,6 +1,7 @@
 var test = require('tape')
 var generateLogger = require('../')
 var Writable = require('stream').Writable
+var os = require('os')
 
 function stripPrefix (message) {
   var prefixLength = 'YYYY-mm-dd hh:mm '.length
@@ -10,7 +11,7 @@ function stripPrefix (message) {
 test('empty messages', function (t) {
   var ws = new Writable()
   ws._write = function(chunk, enc, next) {
-    t.equals(chunk.toString(), '\n', 'should return in empty message')
+    t.equals(chunk.toString(), os.EOL, 'should return in empty message')
     t.end()
   }
   var log = generateLogger('foo', ws)
@@ -32,7 +33,7 @@ test('timestamp', function (t) {
 test('namespace', function (t) {
   var ws = new Writable()
   ws._write = function(chunk, enc, next) {
-    t.equals(stripPrefix(chunk), '[foo]\n', 'in the form [namespace]')
+    t.equals(stripPrefix(chunk), '[foo]' + os.EOL, 'in the form [namespace]')
     t.end()
   }
   var log = generateLogger('foo', ws)
@@ -43,7 +44,7 @@ test('namespace', function (t) {
 test('message', function (t) {
   var ws = new Writable()
   ws._write = function(chunk, enc, next) {
-    t.equals(stripPrefix(chunk), '[foo] bar\n', 'message printed after namespace')
+    t.equals(stripPrefix(chunk), '[foo] bar' + os.EOL, 'message printed after namespace')
     t.end()
   }
   var log = generateLogger('foo', ws)
@@ -54,7 +55,7 @@ test('message', function (t) {
 test('multiple messages', function (t) {
   var ws = new Writable()
   ws._write = function(chunk, enc, next) {
-    t.equals(stripPrefix(chunk), '[foo] bar baz\n', 'concatinate multiple strings')
+    t.equals(stripPrefix(chunk), '[foo] bar baz' + os.EOL, 'concatinate multiple strings')
     t.end()
   }
   var log = generateLogger('foo', ws)
@@ -65,7 +66,10 @@ test('multiple messages', function (t) {
 test('tags', function (t) {
   var ws = new Writable()
   ws._write = function(chunk, enc, next) {
-    t.equals(stripPrefix(chunk), '[foo] (qux) bar\n', 'print tags after namespace if last argument is an array')
+    t.equals(
+      stripPrefix(chunk), '[foo] (qux) bar' + os.EOL,
+      'print tags after namespace if last argument is an array'
+    )
     t.end()
   }
   var log = generateLogger('foo', ws)
@@ -76,7 +80,7 @@ test('tags', function (t) {
 test('multiple tags', function (t) {
   var ws = new Writable()
   ws._write = function(chunk, enc, next) {
-    t.equals(stripPrefix(chunk), '[foo] (qux, quun) bar\n', 'print multiple tags comma separated')
+    t.equals(stripPrefix(chunk), '[foo] (qux, quun) bar' + os.EOL, 'print multiple tags comma separated')
     t.end()
   }
   var log = generateLogger('foo', ws)
