@@ -1,6 +1,6 @@
 {
   "name": "log-with-namespace-and-date-stamp",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "repository": "git@github.com:gausby/log-with-namespace-and-date-stamp.git",
   "bugs": {
     "url": "https://github.com/gausby/log-with-namespace-and-date-stamp/issues"
